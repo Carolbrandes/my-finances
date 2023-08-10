@@ -1,0 +1,51 @@
+.content {
+	margin-top: 4rem;
+
+	table {
+		width: 100%;
+		border-spacing: 0 0.5rem;
+
+		th {
+			font-weight: 400;
+			padding: 1rem 2rem;
+			text-align: left;
+			line-height: 1.5rem;
+		}
+
+		td {
+			padding: 1rem 2rem;
+			border: 0;
+			background: var(--white);
+			text-align: center;
+
+			&:first-child {
+				border-radius: 0.25rem 0 0 0.25rem;
+			}
+
+			&:last-child {
+				border-radius: 0 0.25rem 0.25rem 0;
+			}
+
+			&.earnings {
+				color: var(--green);
+			}
+
+			&.spending {
+				color: var(--red);
+			}
+
+			button {
+				background: transparent;
+				border: 0;
+			}
+		}
+	}
+}
+
+.noTransaction {
+	margin-top: 5rem;
+	font-size: 1.2rem;
+	text-align: center;
+	border: 1px solid var(--gray-02);
+	border-radius: 0.25rem;
+}

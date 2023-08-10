@@ -1,4 +1,4 @@
-interface Transaction {
+interface Transactions {
 	id: string
 	title: string
 	type: 'earnings' | 'spending'

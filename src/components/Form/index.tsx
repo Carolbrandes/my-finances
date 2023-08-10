@@ -1,51 +1,100 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
-
-const { register, handleSubmit } = useForm<TransactionInput>()
-const onSubmit: SubmitHandler<TransactionInput> = (data) => console.log(data)
+import { useContext } from 'react'
+import { TransactionsContext } from '../../context/globalContext'
+import styles from './styles.module.scss'
 
 export function Form() {
+	const {
+		addNewTransaction,
+		transactionSelected,
+		editTransaction,
+		handleCloseModalForm
+	} = useContext(TransactionsContext)
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors }
+	} = useForm<Transactions>({
+		defaultValues: {
+			title: transactionSelected?.title || '',
+			type: transactionSelected?.type || 'earnings',
+			category: transactionSelected?.category || '',
+			value: transactionSelected?.value || 0
+		}
+	})
+
+	const onSubmit: SubmitHandler<TransactionInput> = (data) => {
+		if (transactionSelected) {
+			const edited = { ...transactionSelected, ...data }
+			editTransaction(edited)
+			return
+		}
+		addNewTransaction(data)
+		handleCloseModalForm()
+	}
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<div>
-				<label htmlFor="title">Título</label>
-				<input type="text" {...register('title', { required: true })} />
-			</div>
-
-			<div>
-				<p>Tipo</p>
+		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<div className={styles.field}>
 				<div>
+					<label htmlFor="title">Título</label>
 					<input
-						type="radio"
-						id="earnings"
-						{...register('type', { required: true })}
+						type="text"
+						{...register('title', { required: true })}
 					/>
-					<label htmlFor="earnings">Entradas</label>
 				</div>
+				{errors.title && <p>O título é obrigatório</p>}
+			</div>
 
+			<div className={styles.field}>
+				<span>Tipo</span>
+
+				<div className={styles.radioWrapper}>
+					<div>
+						<input
+							type="radio"
+							id="earnings"
+							value="earnings"
+							{...register('type', { required: true })}
+						/>
+						<label htmlFor="earnings">Entradas</label>
+					</div>
+
+					<div>
+						<input
+							type="radio"
+							id="spending"
+							value="spending"
+							{...register('type')}
+						/>
+						<label htmlFor="spending">Saídas</label>
+					</div>
+				</div>
+				{errors.type && <p>O tipo é obrigatório</p>}
+			</div>
+
+			<div className={styles.field}>
+				<label htmlFor="category">Categoria</label>
+				<input id="category" type="text" {...register('category')} />
+				{errors.category && <p>A categoria é obrigatória</p>}
+			</div>
+
+			<div className={styles.field}>
 				<div>
-					<input type="radio" id="spending" {...register('type')} />
-					<label htmlFor="spending">Saídas</label>
+					<label htmlFor="value">Valor</label>
+					<input
+						id="value"
+						type="number"
+						{...register('value', { required: true })}
+					/>
 				</div>
-			</div>
-			<div>
-				<select
-					id="category"
-					{...register('category', { required: true })}
-				>
-					<option value="teste">teste</option>
-				</select>
+				{errors.value && <p>O valor é obrigatório</p>}
 			</div>
 
-			<div>
-				<label htmlFor="value">Valor</label>
-				<input
-					id="value"
-					type="number"
-					{...register('value', { required: true })}
-				/>
-			</div>
-
-			<button type="submit">Cadastrar</button>
+			<button type="submit">
+				{transactionSelected ? 'Editar' : 'Cadastrar'}
+			</button>
 		</form>
 	)
 }

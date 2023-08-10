@@ -1,7 +1,13 @@
-import React from 'react'
+import { Dashboard } from './components/Dashboard'
+import { TransactionsStorage } from './context/globalContext'
+import './styles/global.scss'
 
 function App() {
-	return <></>
+	return (
+		<TransactionsStorage>
+			<Dashboard />
+		</TransactionsStorage>
+	)
 }
 
 export default App
