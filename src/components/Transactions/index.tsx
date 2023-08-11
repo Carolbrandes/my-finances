@@ -43,13 +43,15 @@ export function Transactions() {
 				<div className={styles.content}>
 					<table>
 						<thead>
-							<th>Data</th>
-							<th>Título</th>
-							<th>Tipo</th>
-							<th>Categoria</th>
-							<th>Valor</th>
-							<th>Editar</th>
-							<th>Excluir</th>
+							<tr>
+								<th>Data</th>
+								<th>Título</th>
+								<th>Tipo</th>
+								<th>Categoria</th>
+								<th>Valor</th>
+								<th>Editar</th>
+								<th>Excluir</th>
+							</tr>
 						</thead>
 
 						<tbody>
