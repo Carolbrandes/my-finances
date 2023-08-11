@@ -36,7 +36,7 @@ export function TransactionLine({ transaction }: TransactionLineProps) {
 				{new Intl.NumberFormat('pt-BR', {
 					style: 'currency',
 					currency: 'BRL'
-				}).format(value)}
+				}).format(+value)}
 			</td>
 			<td>
 				<button onClick={handleEdit} type="button">

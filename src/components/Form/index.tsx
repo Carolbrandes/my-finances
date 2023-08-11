@@ -21,12 +21,12 @@ export function Form() {
 			title: transactionSelected?.title || '',
 			type: transactionSelected?.type || 'earnings',
 			category: transactionSelected?.category || '',
-			value: transactionSelected?.value || 0
+			value: transactionSelected?.value || ''
 		}
 	})
 
 	const onSubmit: SubmitHandler<TransactionInput> = (data) => {
-		if (transactionSelected) {
+		if (transactionSelected?.id) {
 			const edited = { ...transactionSelected, ...data }
 			editTransaction(edited)
 			handleCloseModalForm()
@@ -46,7 +46,11 @@ export function Form() {
 						{...register('title', { required: true })}
 					/>
 				</div>
-				{errors.title && <p>O título é obrigatório</p>}
+				{errors.title && (
+					<p className={styles.errorMessage}>
+						O título é obrigatório
+					</p>
+				)}
 			</div>
 
 			<div className={styles.field}>
@@ -73,7 +77,9 @@ export function Form() {
 						<label htmlFor="spending">Saídas</label>
 					</div>
 				</div>
-				{errors.type && <p>O tipo é obrigatório</p>}
+				{errors.type && (
+					<p className={styles.errorMessage}>O tipo é obrigatório</p>
+				)}
 			</div>
 
 			<div className={styles.field}>
@@ -90,7 +96,11 @@ export function Form() {
 					))}
 				</select>
 
-				{errors.category && <p>A categoria é obrigatória</p>}
+				{errors.category && (
+					<p className={styles.errorMessage}>
+						A categoria é obrigatória
+					</p>
+				)}
 			</div>
 
 			<div className={styles.field}>
@@ -102,11 +112,13 @@ export function Form() {
 						{...register('value', { required: true })}
 					/>
 				</div>
-				{errors.value && <p>O valor é obrigatório</p>}
+				{errors.value && (
+					<p className={styles.errorMessage}>O valor é obrigatório</p>
+				)}
 			</div>
 
 			<button type="submit">
-				{transactionSelected ? 'Editar' : 'Cadastrar'}
+				{transactionSelected?.id ? 'Editar' : 'Cadastrar'}
 			</button>
 		</form>
 	)

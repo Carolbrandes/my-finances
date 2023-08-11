@@ -3,7 +3,7 @@ interface Transactions {
 	title: string
 	type: 'earnings' | 'spending'
 	category: string
-	value: number
+	value: number | string
 	createdAt: string
 }
 

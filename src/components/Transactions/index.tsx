@@ -5,14 +5,6 @@ import styles from './styles.module.scss'
 
 export function Transactions() {
 	const { transactionList, filterSelected } = useContext(TransactionsContext)
-	console.log(
-		'🚀 ~ file: index.tsx:8 ~ Transactions ~ transactionList:',
-		transactionList
-	)
-	console.log(
-		'🚀 ~ file: index.tsx:8 ~ Transactions ~ filterSelected:',
-		filterSelected
-	)
 
 	const transactionsFilter =
 		filterSelected?.category || filterSelected?.type
@@ -28,10 +20,7 @@ export function Transactions() {
 							: true
 					)
 			: transactionList
-	console.log(
-		'🚀 ~ file: index.tsx:18 ~ Transactions ~ transactionsFilter:',
-		transactionsFilter
-	)
+
 	return (
 		<>
 			{transactionsFilter?.length ? (
