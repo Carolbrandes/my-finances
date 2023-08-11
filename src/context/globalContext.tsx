@@ -5,6 +5,11 @@ interface Props {
 	children?: ReactNode
 }
 
+interface Filter {
+	type?: string
+	category?: string
+}
+
 interface TransactionsContextData {
 	transactionList: Transactions[]
 	addNewTransaction: (transaction: TransactionInput) => void
@@ -18,6 +23,9 @@ interface TransactionsContextData {
 	handleCloseModalDelete: () => void
 	handleOpenModalDelete: () => void
 	modalDelete: boolean
+	categories: string[]
+	filterSelected: Filter
+	setFilterSelected: (filters: Filter) => void
 }
 
 export const TransactionsContext = createContext<TransactionsContextData>(
@@ -39,6 +47,17 @@ export const TransactionsStorage = ({ children }: Props) => {
 	const [modalForm, setModalForm] = useState(false)
 	const [transactionSelected, setTransactionSelected] = useState<any>()
 	const [modalDelete, setModalDelete] = useState(false)
+	const [filterSelected, setFilterSelected] = useState<any>()
+
+	const categories = [
+		'salário',
+		'bônus',
+		'freelancer',
+		'aluguel',
+		'projetos',
+		'conta de luz',
+		'outros'
+	]
 
 	const handleCloseModalForm = () => setModalForm(false)
 	const handleOpenModalForm = () => setModalForm(true)
@@ -104,7 +123,10 @@ export const TransactionsStorage = ({ children }: Props) => {
 				setTransactionSelected,
 				modalDelete,
 				handleCloseModalDelete,
-				handleOpenModalDelete
+				handleOpenModalDelete,
+				categories,
+				filterSelected,
+				setFilterSelected
 			}}
 		>
 			{children}

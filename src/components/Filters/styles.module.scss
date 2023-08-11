@@ -1,0 +1,19 @@
+.content {
+	margin: 4rem 0;
+	display: flex;
+
+	.filter {
+		&:not(&:last-child) {
+			margin-right: 1rem;
+		}
+
+		label {
+			margin-right: 0.5rem;
+		}
+
+		select {
+			border-radius: 0.25rem;
+			height: 30px;
+		}
+	}
+}

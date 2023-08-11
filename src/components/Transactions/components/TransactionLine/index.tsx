@@ -30,7 +30,7 @@ export function TransactionLine({ transaction }: TransactionLineProps) {
 		<tr>
 			<td>{moment(createdAt).format('D/MM/YYYY')}</td>
 			<td>{title}</td>
-			<td>{type}</td>
+			<td>{type == 'earnings' ? 'Entradas' : 'Saídas'}</td>
 			<td>{category}</td>
 			<td>
 				{new Intl.NumberFormat('pt-BR', {

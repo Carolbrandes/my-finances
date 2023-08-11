@@ -8,7 +8,8 @@ export function Form() {
 		addNewTransaction,
 		transactionSelected,
 		editTransaction,
-		handleCloseModalForm
+		handleCloseModalForm,
+		categories
 	} = useContext(TransactionsContext)
 
 	const {
@@ -28,6 +29,7 @@ export function Form() {
 		if (transactionSelected) {
 			const edited = { ...transactionSelected, ...data }
 			editTransaction(edited)
+			handleCloseModalForm()
 			return
 		}
 		addNewTransaction(data)
@@ -76,7 +78,18 @@ export function Form() {
 
 			<div className={styles.field}>
 				<label htmlFor="category">Categoria</label>
-				<input id="category" type="text" {...register('category')} />
+				<select {...register('category')} id="category">
+					{categories?.map((category, index) => (
+						<option
+							key={category}
+							value={category}
+							selected={index == 0}
+						>
+							{category}
+						</option>
+					))}
+				</select>
+
 				{errors.category && <p>A categoria é obrigatória</p>}
 			</div>
 

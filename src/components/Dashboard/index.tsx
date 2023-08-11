@@ -5,6 +5,7 @@ import { Transactions } from '../Transactions'
 import { TransactionsContext } from '../../context/globalContext'
 import { PopUp } from '../PopUp'
 import { ConfirmDeleteModal } from '../ConfirmDeleteModal'
+import { Filters } from '../Filters'
 
 export function Dashboard() {
 	const {
@@ -17,6 +18,7 @@ export function Dashboard() {
 		<>
 			<Header />
 			<div className="container">
+				<Filters />
 				<Transactions />
 			</div>
 

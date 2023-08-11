@@ -4,11 +4,37 @@ import { TransactionLine } from './components/TransactionLine'
 import styles from './styles.module.scss'
 
 export function Transactions() {
-	const { transactionList } = useContext(TransactionsContext)
+	const { transactionList, filterSelected } = useContext(TransactionsContext)
+	console.log(
+		'🚀 ~ file: index.tsx:8 ~ Transactions ~ transactionList:',
+		transactionList
+	)
+	console.log(
+		'🚀 ~ file: index.tsx:8 ~ Transactions ~ filterSelected:',
+		filterSelected
+	)
 
+	const transactionsFilter =
+		filterSelected?.category || filterSelected?.type
+			? transactionList
+					.filter((transaction) =>
+						filterSelected.type
+							? transaction.type == filterSelected?.type
+							: true
+					)
+					.filter((transaction) =>
+						filterSelected.category
+							? transaction.category == filterSelected?.category
+							: true
+					)
+			: transactionList
+	console.log(
+		'🚀 ~ file: index.tsx:18 ~ Transactions ~ transactionsFilter:',
+		transactionsFilter
+	)
 	return (
 		<>
-			{transactionList?.length ? (
+			{transactionsFilter?.length ? (
 				<div className={styles.content}>
 					<table>
 						<thead>
@@ -22,7 +48,7 @@ export function Transactions() {
 						</thead>
 
 						<tbody>
-							{transactionList.map((transaction) => (
+							{transactionsFilter.map((transaction) => (
 								<TransactionLine
 									key={transaction.id}
 									transaction={transaction}
