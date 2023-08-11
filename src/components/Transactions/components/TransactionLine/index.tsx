@@ -5,7 +5,7 @@ import { TransactionsContext } from '../../../../context/globalContext'
 import { useContext } from 'react'
 
 interface TransactionLineProps {
-	transaction: Transactions
+	transaction: TransactionsTable
 }
 
 export function TransactionLine({ transaction }: TransactionLineProps) {
@@ -14,7 +14,7 @@ export function TransactionLine({ transaction }: TransactionLineProps) {
 		setTransactionSelected,
 		handleOpenModalDelete
 	} = useContext(TransactionsContext)
-	const { createdAt, title, type, category, value } = transaction
+	const { createdAt, title, type, category, valueFormatted } = transaction
 
 	const handleEdit = () => {
 		setTransactionSelected(transaction)
@@ -32,12 +32,7 @@ export function TransactionLine({ transaction }: TransactionLineProps) {
 			<td>{title}</td>
 			<td>{type == 'earnings' ? 'Entradas' : 'Saídas'}</td>
 			<td>{category}</td>
-			<td>
-				{new Intl.NumberFormat('pt-BR', {
-					style: 'currency',
-					currency: 'BRL'
-				}).format(+value.toString().replace(',', '.'))}
-			</td>
+			<td>{valueFormatted}</td>
 			<td>
 				<button onClick={handleEdit} type="button">
 					<BiSolidEdit size={20} />

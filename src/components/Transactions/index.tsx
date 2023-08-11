@@ -6,9 +6,25 @@ import styles from './styles.module.scss'
 export function Transactions() {
 	const { transactionList, filterSelected } = useContext(TransactionsContext)
 
+	const transactionsFormatted = transactionList.map((transaction) => {
+		return {
+			...transaction,
+
+			valueFormatted: new Intl.NumberFormat('pt-BR', {
+				style: 'currency',
+				currency: 'BRL'
+			}).format(
+				+transaction.value
+					.toString()
+					.replaceAll('.', '')
+					.replace(',', '.')
+			)
+		}
+	})
+
 	const transactionsFilter =
 		filterSelected?.category || filterSelected?.type
-			? transactionList
+			? transactionsFormatted
 					.filter((transaction) =>
 						filterSelected.type
 							? transaction.type == filterSelected?.type
@@ -19,7 +35,7 @@ export function Transactions() {
 							? transaction.category == filterSelected?.category
 							: true
 					)
-			: transactionList
+			: transactionsFormatted
 
 	return (
 		<>

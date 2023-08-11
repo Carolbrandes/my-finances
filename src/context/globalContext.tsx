@@ -56,6 +56,17 @@ export const TransactionsStorage = ({ children }: Props) => {
 		'aluguel',
 		'projetos',
 		'conta de luz',
+		'saúde',
+		'educação',
+		'beleza',
+		'compras',
+		'automóveis',
+		'imóveis',
+		'vendas',
+		'cartão de crédito',
+		'empréstimos',
+		'financiamentos',
+		'consertos e reparos',
 		'outros'
 	]
 
@@ -71,6 +82,7 @@ export const TransactionsStorage = ({ children }: Props) => {
 			createdAt: new Date().toISOString(),
 			id: nanoid()
 		}
+
 		setTransactionList((transactionList) => [
 			...transactionList,
 			newTransaction

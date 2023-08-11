@@ -12,7 +12,7 @@ export function ButtonNewTransaction() {
 			category: categories[0],
 			title: '',
 			type: 'earnings',
-			value: '',
+			value: 0,
 			createdAt: ''
 		})
 		handleOpenModalForm()

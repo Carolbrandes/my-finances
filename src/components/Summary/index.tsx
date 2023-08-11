@@ -8,18 +8,24 @@ import styles from './styles.module.scss'
 export function Summary() {
 	const { transactionList } = useContext(TransactionsContext)
 
-	const summary = transactionList.reduce(
+	const transactionForCalc = transactionList.map((transaction) => {
+		return {
+			...transaction,
+			value: transaction.value
+				.toString()
+				.replaceAll('.', '')
+				.replace(',', '.')
+		}
+	})
+
+	const summary = transactionForCalc.reduce(
 		(acc, transaction) => {
-			console.log(
-				'🚀 ~ file: index.tsx:13 ~ Summary ~ transaction:',
-				transaction
-			)
 			if (transaction.type == 'earnings') {
-				acc.earnings += +transaction.value.toString().replace(',', '.')
-				acc.total += +transaction.value.toString().replace(',', '.')
+				acc.earnings += +transaction.value
+				acc.total += +transaction.value
 			} else {
-				acc.spends += +transaction.value.toString().replace(',', '.')
-				acc.total -= +transaction.value.toString().replace(',', '.')
+				acc.spends += +transaction.value
+				acc.total -= +transaction.value
 			}
 
 			return acc
@@ -30,7 +36,6 @@ export function Summary() {
 			total: 0
 		}
 	)
-	console.log('🚀 ~ file: index.tsx:33 ~ Summary ~ summary:', summary)
 
 	return (
 		<div className={styles.container}>

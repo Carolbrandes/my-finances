@@ -3,8 +3,13 @@ interface Transactions {
 	title: string
 	type: 'earnings' | 'spending'
 	category: string
-	value: number | string
+	value: number
+
 	createdAt: string
 }
 
 type TransactionInput = Omit<Transactions, 'id' | 'createdAt'>
+
+interface TransactionsTable extends Transactions {
+	valueFormatted: string
+}

@@ -2,6 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useContext } from 'react'
 import { TransactionsContext } from '../../context/globalContext'
 import styles from './styles.module.scss'
+import { error } from 'console'
 
 export function Form() {
 	const {
@@ -21,7 +22,7 @@ export function Form() {
 			title: transactionSelected?.title || '',
 			type: transactionSelected?.type || 'earnings',
 			category: transactionSelected?.category || '',
-			value: transactionSelected?.value || ''
+			value: transactionSelected?.value || 0
 		}
 	})
 
@@ -116,10 +117,13 @@ export function Form() {
 								message: 'O valor deve ser numérico'
 							}
 						})}
+						onChange={(e) => +e.target.value}
 					/>
 				</div>
 				{errors.value && (
-					<p className={styles.errorMessage}>O valor é obrigatório</p>
+					<p className={styles.errorMessage}>
+						{errors.value.message}
+					</p>
 				)}
 			</div>
 
