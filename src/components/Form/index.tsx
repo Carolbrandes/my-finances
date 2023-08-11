@@ -108,8 +108,14 @@ export function Form() {
 					<label htmlFor="value">Valor</label>
 					<input
 						id="value"
-						type="number"
-						{...register('value', { required: true })}
+						type="text"
+						{...register('value', {
+							required: true,
+							pattern: {
+								value: /\d+/g,
+								message: 'O valor deve ser numérico'
+							}
+						})}
 					/>
 				</div>
 				{errors.value && (

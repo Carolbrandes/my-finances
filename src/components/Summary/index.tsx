@@ -15,11 +15,11 @@ export function Summary() {
 				transaction
 			)
 			if (transaction.type == 'earnings') {
-				acc.earnings += +transaction.value
-				acc.total += +transaction.value
+				acc.earnings += +transaction.value.toString().replace(',', '.')
+				acc.total += +transaction.value.toString().replace(',', '.')
 			} else {
-				acc.spends += +transaction.value
-				acc.total -= +transaction.value
+				acc.spends += +transaction.value.toString().replace(',', '.')
+				acc.total -= +transaction.value.toString().replace(',', '.')
 			}
 
 			return acc
